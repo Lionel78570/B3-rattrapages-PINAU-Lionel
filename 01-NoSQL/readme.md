@@ -63,6 +63,7 @@ Après cela lancer mongosh ou mongodb compass, se connecter en local et vérifer
 
 ### Sources
 
+- Video Loom explicative : https://www.loom.com/share/81d29c3937cc4205a2552d1a87bf8628?sid=7d7b5f6b-be2f-4c5a-b477-4e5823a3978a
 - https://www.mongodb.com/docs/manual/
 - https://youtu.be/c2M-rlkkT5o?si=glQJcDsM4pOlk04h
 
