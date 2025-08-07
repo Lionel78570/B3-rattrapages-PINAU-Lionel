@@ -79,6 +79,7 @@ Le frontend utilise Vue.js avec Axios pour communiquer avec l’API.
 - Chaîne YouTube : Tech Wall https://www.youtube.com/@TechWall
 - Playlist : VueJs avec Symfony https://www.youtube.com/playlist?list=PLl3CtU4THqPZ1ARMWsmhCYzlCEMZgTBes
 - Doc Symfony : https://symfony.com/doc/current/setup.html https://symfony.com/doc/current/page_creation.html
+- Video Loom : https://www.loom.com/share/19724c9437a94281b4330a93906fc7fb?sid=7e2bd054-22c9-490b-97aa-beb50de4e898
 
 
 PINAU Lionel
