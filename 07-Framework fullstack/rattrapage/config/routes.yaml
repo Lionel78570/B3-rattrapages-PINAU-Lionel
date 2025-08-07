@@ -1,0 +1,8 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+produits_index:
+  path: /produits
+  controller: App\Controller\ProduitPageController::index
