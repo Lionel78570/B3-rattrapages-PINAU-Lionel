@@ -8,6 +8,8 @@
   "dependencies": {
     "@symfony/webpack-encore": "^5.1.0",
     "axios": "^1.11.0",
+    "core-js": "^3.45.0",
+    "regenerator-runtime": "^0.14.1",
     "ts-loader": "^9.5.2",
     "typescript": "^5.9.2",
     "vue": "^3.5.18",

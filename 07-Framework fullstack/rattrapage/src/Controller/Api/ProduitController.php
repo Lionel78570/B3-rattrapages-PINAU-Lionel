@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller\Api;
 
-use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,18 +8,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProduitController extends AbstractController
 {
     #[Route('/api/produits', name: 'api_produits', methods: ['GET'])]
-    public function list(ProduitRepository $produitRepository): JsonResponse
+    public function index(): JsonResponse
     {
-        $produits = $produitRepository->findAll();
+        $produits = [
+            ['id' => 1, 'nom' => 'Pizza 4 fromages', 'prix' => 5, 'quantite' => 10],
+            ['id' => 2, 'nom' => 'Lasagnes Bolognaise', 'prix' => 10, 'quantite' => 5],
+            ['id' => 3, 'nom' => 'Gratin Dauphinois', 'prix' => 15, 'quantite' => 8],
+        ];
 
-        $data = array_map(fn($p) => [
-            'id' => $p->getId(),
-            'nom' => $p->getNom(),
-            'description' => $p->getDescription(),
-            'prix' => $p->getPrix(),
-            'quantiteStock' => $p->getQuantiteStock(),
-        ], $produits);
-
-        return $this->json($data);
+        return $this->json($produits);
     }
 }

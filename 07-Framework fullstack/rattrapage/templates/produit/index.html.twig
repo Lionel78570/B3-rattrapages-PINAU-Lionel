@@ -1,0 +1,20 @@
+<h1>Liste des produits</h1>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prix (€)</th>
+            <th>Quantité</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.prix }}</td>
+                <td>{{ produit.quantite }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

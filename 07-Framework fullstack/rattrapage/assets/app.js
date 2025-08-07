@@ -1,35 +1,51 @@
-import './bootstrap.js';
-import './styles/app.css';
-
-import { createApp } from 'vue';
+import { createApp, h } from 'vue';
 import axios from 'axios';
+import './styles/app.css';
 
 const App = {
   data() {
     return {
       produits: [],
       error: null,
+      loading: true,
     };
   },
   mounted() {
     axios.get('/api/produits')
-      .then(res => this.produits = res.data)
-      .catch(err => this.error = 'Erreur lors du chargement des produits');
+      .then(res => {
+        this.produits = res.data;
+      })
+      .catch(() => {
+        this.error = 'Erreur lors du chargement des produits';
+      })
+      .finally(() => {
+        this.loading = false;
+      });
   },
-  template: `
-    <div>
-      <h1>Produits disponibles</h1>
-      <div v-if="error" style="color: red">{{ error }}</div>
-      <ul v-if="produits.length">
-        <li v-for="produit in produits" :key="produit.id">
-          <strong>{{ produit.nom }}</strong> - {{ produit.prix }} €
-          <p>{{ produit.description }}</p>
-          <small>Stock : {{ produit.quantiteStock }}</small>
-        </li>
-      </ul>
-      <div v-else>Aucun produit disponible</div>
-    </div>
-  `
+  render() {
+    if (this.loading) {
+      return h('div', 'Chargement en cours...');
+    }
+
+    if (this.error) {
+      return h('div', { style: { color: 'red' } }, this.error);
+    }
+
+    if (this.produits.length === 0) {
+      return h('div', 'Aucun produit disponible');
+    }
+
+    return h('div', [
+      h('h1', 'Produits disponibles'),
+      h('ul', this.produits.map(produit =>
+        h('li', { key: produit.id }, [
+          h('strong', `${produit.nom} - ${produit.prix} €`),
+          h('p', produit.description),
+          h('small', `Stock : ${produit.quantite}`)
+        ])
+      ))
+    ]);
+  }
 };
 
 createApp(App).mount('#app');
