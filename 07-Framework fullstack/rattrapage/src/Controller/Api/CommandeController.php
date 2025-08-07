@@ -4,12 +4,13 @@ namespace App\Controller\Api;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CommandeController extends AbstractController
 {
     #[Route('/api/commandes', name: 'api_commandes', methods: ['POST'])]
-    public function create(Request $request): JsonResponse
+    public function create(Request $request, SessionInterface $session): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
@@ -41,11 +42,31 @@ class CommandeController extends AbstractController
         $produit = $produits[$produitId];
         $total = $produit['prix'] * $quantite;
 
+        $commande = [
+            'produit' => $produit['nom'],
+            'quantite' => $quantite,
+            'total' => $total,
+            'date' => (new \DateTime())->format('d/m/Y H:i'),
+        ];
+
+        $historique = $session->get('historique_commandes', []);
+
+        $historique[] = $commande;
+
+        $session->set('historique_commandes', $historique);
+
         return $this->json([
             'message' => 'Commande passée avec succès',
             'produit' => $produit['nom'],
             'quantite' => $quantite,
             'total' => $total,
         ]);
+    }
+
+    #[Route('/api/commandes/historique', name: 'api_commandes_historique', methods: ['GET'])]
+    public function historique(SessionInterface $session): JsonResponse
+    {
+        $historique = $session->get('historique_commandes', []);
+        return $this->json(['historique' => $historique]);
     }
 }
